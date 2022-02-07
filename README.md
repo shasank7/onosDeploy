@@ -31,6 +31,7 @@ helm repo add atomix https://charts.atomix.io
 helm repo add onosproject https://charts.onosproject.org
 helm repo update
 ```
+
     If the above command fails, try adding one repo at a time 
   
 ### Installing helm charts 
@@ -61,8 +62,23 @@ helm -n micro-onos install onos-umbrella onosproject/onos-umbrella
 ```
 kubectl get pods --all-namespaces
 ```
+## You can attach to:
 
- 
+# Onos CLI pod with
+```
+$ kubectl -n micro-onos exec -it $(kubectl -n micro-onos get pods -l type=cli -o name) -- /bin/sh
+```
+* µONOS GUI at http://<server_IP>:31191
+
+
+# If you are using KinD as a Kubernetes server, you will have to use a "port-forward" to access the GUI e.g.
+```
+$ kubectl -n micro-onos port-forward $(kubectl -n micro-onos get pods -l type=gui -o name) 8182:80
+```
+and then access the GUI at
+* http://localhost:8182
+
+
  ## All Namespaces
  <img width="298" alt="Namespaces" src="https://user-images.githubusercontent.com/98982872/152426973-2f0f98b6-a5f1-41a8-a79b-80011a5a34d0.PNG">
  
